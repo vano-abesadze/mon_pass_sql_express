@@ -514,7 +514,138 @@ namespace mon_pass_sql_express
         }
 
 
-        
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.E))
+            {
+                if (tabControl1.SelectedIndex == 0)
+                {
+                    //dataGridView1.allowp AllowPaging = false;
+
+                    StringBuilder sb = new StringBuilder();
+                    for (int k = 0; k < dataGridView1.Columns.Count; k++)
+                    {
+                        //add separator
+                        if (dataGridView1.Columns[k].Visible)
+                        {
+                            sb.Append(dataGridView1.Columns[k].DataPropertyName + ',');
+                        }
+
+                    }
+                    //append new line
+                    sb.Append("\r\n");
+                    for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                    {
+                        for (int k = 0; k < dataGridView1.Columns.Count; k++)
+                        {
+                            //add separator
+                            if (dataGridView1.Columns[k].Visible)
+                            {
+                                sb.Append(dataGridView1.Rows[i].Cells[k].Value.ToString() + ',');
+                            }
+                        }
+                        //append new line
+                        sb.Append("\r\n");
+                    }
+                    // Below line of code save the file in folder path you specified.
+                    //string folderPath = @"C:\webise\";
+                    string folderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"\";
+                    File.WriteAllText(folderPath + "GM.csv", sb.ToString());
+                    //GridView1.AllowPaging = true;
+                    //GridView1.DataBind();
+                    MessageBox.Show("ფაილი გაექსპორტებულია", "ყურადღება!", MessageBoxButtons.OK);
+                }
+
+
+
+
+                if (tabControl1.SelectedIndex == 1)
+                {
+                    //dataGridView1.allowp AllowPaging = false;
+
+                    StringBuilder sb = new StringBuilder();
+                    for (int k = 0; k < dataGridView3.Columns.Count; k++)
+                    {
+                        //add separator
+                        if (dataGridView3.Columns[k].Visible)
+                        {
+                            sb.Append(dataGridView3.Columns[k].DataPropertyName + ',');
+                        }
+
+                    }
+                    //append new line
+                    sb.Append("\r\n");
+                    for (int i = 0; i < dataGridView3.Rows.Count; i++)
+                    {
+                        for (int k = 0; k < dataGridView3.Columns.Count; k++)
+                        {
+                            //add separator
+                            if (dataGridView3.Columns[k].Visible)
+                            {
+                                sb.Append(dataGridView3.Rows[i].Cells[k].Value.ToString() + ',');
+                            }
+                        }
+                        //append new line
+                        sb.Append("\r\n");
+                    }
+                    // Below line of code save the file in folder path you specified.
+                    //string folderPath = @"C:\webise\";
+                    string folderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"\";
+                    File.WriteAllText(folderPath + "CORP.csv", sb.ToString());
+                    //GridView1.AllowPaging = true;
+                    //GridView1.DataBind();
+                    MessageBox.Show("ფაილი გაექსპორტებულია", "ყურადღება!", MessageBoxButtons.OK);
+                }
+
+
+
+                if (tabControl1.SelectedIndex == 2)
+                {
+                    //dataGridView1.allowp AllowPaging = false;
+
+                    StringBuilder sb = new StringBuilder();
+                    for (int k = 0; k < dataGridView2.Columns.Count; k++)
+                    {
+                        //add separator
+                        if (dataGridView2.Columns[k].Visible)
+                        {
+                            sb.Append(dataGridView2.Columns[k].DataPropertyName + ',');
+                        }
+
+                    }
+                    //append new line
+                    sb.Append("\r\n");
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                    {
+                        for (int k = 0; k < dataGridView2.Columns.Count; k++)
+                        {
+                            //add separator
+                            if (dataGridView2.Columns[k].Visible)
+                            {
+                                sb.Append(dataGridView2.Rows[i].Cells[k].Value.ToString() + ',');
+                            }
+                        }
+                        //append new line
+                        sb.Append("\r\n");
+                    }
+                    // Below line of code save the file in folder path you specified.
+                    //string folderPath = @"C:\webise\";
+                    string folderPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"\";
+                    File.WriteAllText(folderPath + "ONE_PASS.csv", sb.ToString());
+                    //GridView1.AllowPaging = true;
+                    //GridView1.DataBind();
+                    MessageBox.Show("ფაილი გაექსპორტებულია", "ყურადღება!", MessageBoxButtons.OK);
+                }
+
+
+            }
+
+
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
 
         private async void Form1_Load(object sender, EventArgs e)
         {
