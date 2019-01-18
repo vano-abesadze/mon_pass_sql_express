@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="mon_passModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="main">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pass_n" Type="nvarchar" MaxLength="50" />
+          <Property Name="exporter" Type="nvarchar" MaxLength="500" />
+          <Property Name="destination" Type="nvarchar" MaxLength="500" />
+          <Property Name="prod_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="machine_n" Type="nvarchar" MaxLength="50" />
+          <Property Name="base" Type="nvarchar" MaxLength="1000" />
+          <Property Name="inoice" Type="nvarchar" MaxLength="50" />
+          <Property Name="ddate" Type="date" />
+          <Property Name="qty" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="main_corp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pass_n" Type="nvarchar" MaxLength="50" />
+          <Property Name="exporter" Type="nvarchar" MaxLength="500" />
+          <Property Name="destination" Type="nvarchar" MaxLength="500" />
+          <Property Name="prod_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="machine_n" Type="nvarchar" MaxLength="50" />
+          <Property Name="base" Type="nvarchar" MaxLength="1000" />
+          <Property Name="inoice" Type="nvarchar" MaxLength="50" />
+          <Property Name="ddate" Type="date" />
+          <Property Name="qty" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="one_pass">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pass_n" Type="nvarchar" MaxLength="50" />
+          <Property Name="fi_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="la_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="pass_n_and_type" Type="nvarchar" MaxLength="500" />
+          <Property Name="personal_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="destination" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ttime" Type="datetime" />
+          <Property Name="ddate" Type="date" />
+        </EntityType>
+        <EntityContainer Name="mon_passModelStoreContainer">
+          <EntitySet Name="main" EntityType="Self.main" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="main_corp" EntityType="Self.main_corp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="one_pass" EntityType="Self.one_pass" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mon_passModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="main">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pass_n" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="exporter" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="destination" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="prod_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="machine_n" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="base" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="inoice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ddate" Type="DateTime" Precision="0" />
+          <Property Name="qty" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="main_corp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pass_n" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="exporter" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="destination" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="prod_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="machine_n" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="base" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="inoice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ddate" Type="DateTime" Precision="0" />
+          <Property Name="qty" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="one_pass">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pass_n" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fi_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="la_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="pass_n_and_type" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="personal_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="destination" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ttime" Type="DateTime" Precision="3" />
+          <Property Name="ddate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityContainer Name="mon_pass_entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="mains" EntityType="Self.main" />
+          <EntitySet Name="main_corp" EntityType="Self.main_corp" />
+          <EntitySet Name="one_pass" EntityType="Self.one_pass" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mon_passModelStoreContainer" CdmEntityContainer="mon_pass_entities">
+          <EntitySetMapping Name="mains">
+            <EntityTypeMapping TypeName="mon_passModel.main">
+              <MappingFragment StoreEntitySet="main">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pass_n" ColumnName="pass_n" />
+                <ScalarProperty Name="exporter" ColumnName="exporter" />
+                <ScalarProperty Name="destination" ColumnName="destination" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="machine_n" ColumnName="machine_n" />
+                <ScalarProperty Name="base" ColumnName="base" />
+                <ScalarProperty Name="inoice" ColumnName="inoice" />
+                <ScalarProperty Name="ddate" ColumnName="ddate" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="main_corp">
+            <EntityTypeMapping TypeName="mon_passModel.main_corp">
+              <MappingFragment StoreEntitySet="main_corp">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pass_n" ColumnName="pass_n" />
+                <ScalarProperty Name="exporter" ColumnName="exporter" />
+                <ScalarProperty Name="destination" ColumnName="destination" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="machine_n" ColumnName="machine_n" />
+                <ScalarProperty Name="base" ColumnName="base" />
+                <ScalarProperty Name="inoice" ColumnName="inoice" />
+                <ScalarProperty Name="ddate" ColumnName="ddate" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="one_pass">
+            <EntityTypeMapping TypeName="mon_passModel.one_pass">
+              <MappingFragment StoreEntitySet="one_pass">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pass_n" ColumnName="pass_n" />
+                <ScalarProperty Name="fi_name" ColumnName="fi_name" />
+                <ScalarProperty Name="la_name" ColumnName="la_name" />
+                <ScalarProperty Name="pass_n_and_type" ColumnName="pass_n_and_type" />
+                <ScalarProperty Name="personal_id" ColumnName="personal_id" />
+                <ScalarProperty Name="destination" ColumnName="destination" />
+                <ScalarProperty Name="ttime" ColumnName="ttime" />
+                <ScalarProperty Name="ddate" ColumnName="ddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
