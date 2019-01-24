@@ -46,17 +46,12 @@
             this.one_passBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSet1 = new mon_pass_sql_express.DataSet1();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -97,12 +92,13 @@
             this.tableAdapterManager = new mon_pass_sql_express.DataSet1TableAdapters.TableAdapterManager();
             this.main_corpTableAdapter = new mon_pass_sql_express.DataSet1TableAdapters.main_corpTableAdapter();
             this.one_passTableAdapter = new mon_pass_sql_express.DataSet1TableAdapters.one_passTableAdapter();
+            this.mainBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.mainBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.one_passBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel8.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -115,10 +111,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.main_corpBindingSource)).BeginInit();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView2
             // 
+            this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AutoGenerateColumns = false;
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
@@ -153,6 +152,7 @@
             this.dataGridView2.Size = new System.Drawing.Size(1569, 706);
             this.dataGridView2.TabIndex = 9;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dataGridView2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseUp);
             // 
             // idDataGridViewTextBoxColumn2
             // 
@@ -234,11 +234,11 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.panel8);
             this.panel3.Controls.Add(this.button6);
             this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.button3);
-            this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.panel3.ForeColor = System.Drawing.Color.Navy;
@@ -247,11 +247,22 @@
             this.panel3.Size = new System.Drawing.Size(1577, 50);
             this.panel3.TabIndex = 6;
             // 
+            // button1
+            // 
+            this.button1.AutoSize = true;
+            this.button1.Location = new System.Drawing.Point(408, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(133, 34);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "განახლება";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // panel8
             // 
             this.panel8.Controls.Add(this.checkBox1);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel8.Location = new System.Drawing.Point(798, 0);
+            this.panel8.Location = new System.Drawing.Point(1452, 0);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(123, 48);
             this.panel8.TabIndex = 11;
@@ -260,7 +271,7 @@
             // 
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Right;
             this.checkBox1.Location = new System.Drawing.Point(0, 0);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(123, 48);
@@ -301,71 +312,6 @@
             this.button3.Text = "ახალი საშვი";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.button7);
-            this.panel4.Controls.Add(this.button4);
-            this.panel4.Controls.Add(this.button1);
-            this.panel4.Controls.Add(this.label1);
-            this.panel4.Controls.Add(this.button2);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(921, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(654, 48);
-            this.panel4.TabIndex = 7;
-            // 
-            // button7
-            // 
-            this.button7.AutoSize = true;
-            this.button7.Location = new System.Drawing.Point(7, 8);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(113, 32);
-            this.button7.TabIndex = 8;
-            this.button7.Text = "<< თავში";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // button4
-            // 
-            this.button4.AutoSize = true;
-            this.button4.Location = new System.Drawing.Point(535, 8);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(113, 32);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "ბოლოში >>";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button1
-            // 
-            this.button1.AutoSize = true;
-            this.button1.Location = new System.Drawing.Point(126, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 32);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "< უკან";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(237, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(182, 26);
-            this.label1.TabIndex = 6;
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // button2
-            // 
-            this.button2.AutoSize = true;
-            this.button2.Location = new System.Drawing.Point(425, 8);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(104, 32);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "შემდეგი >";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // tabPage3
             // 
@@ -452,6 +398,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
@@ -485,6 +432,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1563, 677);
             this.dataGridView1.TabIndex = 7;
+            this.dataGridView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseUp);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -596,6 +544,7 @@
             // 
             // dataGridView3
             // 
+            this.dataGridView3.AllowUserToAddRows = false;
             this.dataGridView3.AutoGenerateColumns = false;
             this.dataGridView3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
@@ -629,6 +578,7 @@
             this.dataGridView3.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView3.Size = new System.Drawing.Size(1563, 677);
             this.dataGridView3.TabIndex = 8;
+            this.dataGridView3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView3_MouseUp);
             // 
             // idDataGridViewTextBoxColumn1
             // 
@@ -743,6 +693,16 @@
             // 
             this.one_passTableAdapter.ClearBeforeFill = true;
             // 
+            // mainBindingSource1
+            // 
+            this.mainBindingSource1.DataMember = "main";
+            this.mainBindingSource1.DataSource = this.dataSet1;
+            // 
+            // mainBindingSource2
+            // 
+            this.mainBindingSource2.DataMember = "main";
+            this.mainBindingSource2.DataSource = this.dataSet1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -762,8 +722,6 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel8.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -778,6 +736,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.main_corpBindingSource)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainBindingSource2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -791,12 +751,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
@@ -848,6 +802,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn destinationDataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ttimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ddateDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.BindingSource mainBindingSource2;
+        private System.Windows.Forms.BindingSource mainBindingSource1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

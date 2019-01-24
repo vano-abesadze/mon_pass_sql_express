@@ -27,5 +27,8 @@ namespace mon_pass_sql_express
 
         public static bool yyes = false;
 
+
+        public static bool ssave_ok = false;
+
     }
 }

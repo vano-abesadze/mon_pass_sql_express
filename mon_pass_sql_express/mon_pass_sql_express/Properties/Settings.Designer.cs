@@ -26,8 +26,8 @@ namespace mon_pass_sql_express.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLNCLI11;Data Source=VA\\SQL_2017_DEV;Password=sasa;User ID=sa;Initial C" +
-            "atalog=mon_pass")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLNCLI11;Data Source=asa\\asa;Password=Aa123456;User ID=sa;Initial Catal" +
+            "og=mon_pass")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));

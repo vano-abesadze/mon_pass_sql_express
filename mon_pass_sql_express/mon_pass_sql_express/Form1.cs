@@ -25,12 +25,12 @@ namespace mon_pass_sql_express
 
         string conn_str = "";
 
-        int pagenumber = 1;
-        int pagenumber_2 = 1;
-        int pagenumber_3 = 1;
-        IPagedList<main> list;
-        IPagedList<main_corp> list1;
-        IPagedList<one_pass> list2;
+        //int pagenumber = 1;
+        //int pagenumber_2 = 1;
+        //int pagenumber_3 = 1;
+        //IPagedList<main> list;
+        //IPagedList<main_corp> list1;
+        //IPagedList<one_pass> list2;
 
         string or_and;
 
@@ -54,7 +54,7 @@ namespace mon_pass_sql_express
         {
             return await Task.Factory.StartNew(() =>
             {
-                using (mon_pass_entities dd = new mon_pass_entities(conn_str))
+                using (mon_pass_entities dd = new mon_pass_entities())
                 {
                     //Int32 oiyuggb = dd.mains.OrderBy(p => p.id).Count();
 
@@ -77,7 +77,7 @@ namespace mon_pass_sql_express
         {
             return await Task.Factory.StartNew(() =>
             {
-                using (mon_pass_entities dd = new mon_pass_entities(conn_str))
+                using (mon_pass_entities dd = new mon_pass_entities())
                 {
                     //Int32 oiyuggb = dd.mains.OrderBy(p => p.id).Count();
 
@@ -100,7 +100,7 @@ namespace mon_pass_sql_express
         {
             return await Task.Factory.StartNew(() =>
             {
-                using (mon_pass_entities dd = new mon_pass_entities(conn_str))
+                using (mon_pass_entities dd = new mon_pass_entities())
                 {
                     //Int32 oiyuggb = dd.mains.OrderBy(p => p.id).Count();
 
@@ -124,7 +124,7 @@ namespace mon_pass_sql_express
         {
             return await Task.Factory.StartNew(() =>
             {
-                using (mon_pass_entities dd = new mon_pass_entities(conn_str))
+                using (mon_pass_entities dd = new mon_pass_entities())
                 {
                     return dd.main_corp.OrderBy(p => p.id).ToPagedList(pagenumber_2, pagesize);
                 }
@@ -136,7 +136,7 @@ namespace mon_pass_sql_express
         {
             return await Task.Factory.StartNew(() =>
             {
-                using (mon_pass_entities dd = new mon_pass_entities(conn_str))
+                using (mon_pass_entities dd = new mon_pass_entities())
                 {
                     return dd.mains.OrderBy(p => p.id).ToPagedList(pagenumber, pagesize);
                 }
@@ -149,7 +149,7 @@ namespace mon_pass_sql_express
         {
             return await Task.Factory.StartNew(() =>
             {
-                using (mon_pass_entities dd = new mon_pass_entities(conn_str))
+                using (mon_pass_entities dd = new mon_pass_entities())
                 {
                     return dd.one_pass.OrderBy(p => p.id).ToPagedList(pagenumber_3, pagesize);
                 }
@@ -163,7 +163,7 @@ namespace mon_pass_sql_express
 
             return await Task.Factory.StartNew(() =>
             {
-                using (mon_pass_entities ff = new mon_pass_entities(conn_str))
+                using (mon_pass_entities ff = new mon_pass_entities())
                 {
                     return ff.mains.SqlQuery("select * from main ").ToPagedList(pagenumber, pagesize);
 
@@ -179,7 +179,7 @@ namespace mon_pass_sql_express
             return await Task.Factory.StartNew(() =>
             {
 
-                using (mon_pass_entities ff = new mon_pass_entities(conn_str))
+                using (mon_pass_entities ff = new mon_pass_entities())
                 {
                     return ff.one_pass.SqlQuery("select * from one_pass where " + filter).ToPagedList(pagenumber_3, pagesize);
 
@@ -193,7 +193,7 @@ namespace mon_pass_sql_express
 
             return await Task.Factory.StartNew(() =>
             {
-                using (mon_pass_entities ff = new mon_pass_entities(conn_str))
+                using (mon_pass_entities ff = new mon_pass_entities())
                 {
                     return ff.one_pass.SqlQuery("select * from one_pass ").ToPagedList(pagenumber_3, pagesize);
 
@@ -209,7 +209,7 @@ namespace mon_pass_sql_express
             return await Task.Factory.StartNew(() =>
             {
 
-                using (mon_pass_entities ff = new mon_pass_entities(conn_str))
+                using (mon_pass_entities ff = new mon_pass_entities())
                 {
                     string sql = "select sum(qty) as dd from main_corp where " + filter;
                     SqlConnection con = new SqlConnection(main_corpTableAdapter.Connection.ConnectionString);
@@ -237,7 +237,7 @@ namespace mon_pass_sql_express
 
             return await Task.Factory.StartNew(() =>
             {
-                using (mon_pass_entities ff = new mon_pass_entities(conn_str))
+                using (mon_pass_entities ff = new mon_pass_entities())
                 {
                     return ff.main_corp.SqlQuery("select * from main_corp ").ToPagedList(pagenumber_2, pagesize);
 
@@ -254,7 +254,7 @@ namespace mon_pass_sql_express
             {
 
 
-                using (mon_pass_entities ff = new mon_pass_entities(conn_str))
+                using (mon_pass_entities ff = new mon_pass_entities())
                 {
 
 
@@ -371,39 +371,46 @@ namespace mon_pass_sql_express
                     //dataGridView3.Enabled = false;
                     if (dataGridView2.Columns[i].Visible)
                     {
-
-                        //temp = dataGridView3.Controls[i];
-                        //temp = dataGridView3.Controls["TxtBoxVol_" + i.ToString()];
-                        var temp = items.Cast<Control>().FirstOrDefault(control => String.Equals(control.Tag, i));
-
-                        Rectangle dd = dataGridView2.GetCellDisplayRectangle(i, -1, true);
-
-                        if (temp is MaskedTextBox)
+                        if (i == 7)
                         {
-                            if (temp.Name == "maskedTextBox_one_pass_time_1")
-                            {
-                                temp.Width = dataGridView2.Columns[i].Width - 8;
-                                temp.Location = new Point(dd.X + 3, dd.Y + 48);
-                            }
-                            else
-                            {
-                                var temp1 = items.Cast<Control>().FirstOrDefault(control => String.Equals(control.Name, "maskedTextBox_one_pass_1"));
-                                temp1.Width = (dataGridView2.Columns[i].Width / 2) - 8;
-                                temp1.Location = new Point(dd.X + 3, dd.Y + 48);
-                                var temp2 = items.Cast<Control>().FirstOrDefault(control => String.Equals(control.Name, "maskedTextBox_one_pass_2"));
-                                temp2.Width = (dataGridView2.Columns[i].Width / 2) - 8;
-                                temp2.Location = new Point((dd.X + temp2.Width + 9) + 3, dd.Y + 48);
-                            }
 
                         }
                         else
                         {
-                            temp.Width = dataGridView2.Columns[i].Width - 8;
-                            temp.Location = new Point(dd.X + 3, dd.Y + 48);
+                            //temp = dataGridView3.Controls[i];
+                            //temp = dataGridView3.Controls["TxtBoxVol_" + i.ToString()];
+                            var temp = items.Cast<Control>().FirstOrDefault(control => String.Equals(control.Tag, i));
+
+                            Rectangle dd = dataGridView2.GetCellDisplayRectangle(i, -1, true);
+
+                            if (temp is MaskedTextBox)
+                            {
+                                if (temp.Name == "maskedTextBox_one_pass_time_1")
+                                {
+                                    temp.Width = dataGridView2.Columns[i].Width - 8;
+                                    temp.Location = new Point(dd.X + 3, dd.Y + 48);
+                                }
+                                else
+                                {
+                                    var temp1 = items.Cast<Control>().FirstOrDefault(control => String.Equals(control.Name, "maskedTextBox_one_pass_1"));
+                                    temp1.Width = (dataGridView2.Columns[i].Width / 2) - 8;
+                                    temp1.Location = new Point(dd.X + 3, dd.Y + 48);
+                                    var temp2 = items.Cast<Control>().FirstOrDefault(control => String.Equals(control.Name, "maskedTextBox_one_pass_2"));
+                                    temp2.Width = (dataGridView2.Columns[i].Width / 2) - 8;
+                                    temp2.Location = new Point((dd.X + temp2.Width + 9) + 3, dd.Y + 48);
+                                }
+
+                            }
+                            else
+                            {
+                                temp.Width = dataGridView2.Columns[i].Width - 8;
+                                temp.Location = new Point(dd.X + 3, dd.Y + 48);
+                            }
+
+
+                            Application.DoEvents();
                         }
-
-
-                        Application.DoEvents();
+                        
 
                         //if (temp is TextBox)
                         //{
@@ -649,62 +656,74 @@ namespace mon_pass_sql_express
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-
-            if (File.Exists("mon_pass_sql_express.ini"))
+            try
             {
-                IniData parsedData = fileIniData.ReadFile("mon_pass_sql_express.ini");
-                KeyDataCollection keyCol = @parsedData["Configuration"];
-                string sql_server = @keyCol["sql_server"];
-                string data_base_name = @keyCol["data_base_name"];
+                //if (File.Exists("mon_pass_sql_express.ini"))
+                //{
+                    //IniData parsedData = fileIniData.ReadFile("mon_pass_sql_express.ini");
+                    //KeyDataCollection keyCol = @parsedData["Configuration"];
+                    //string sql_server = @keyCol["sql_server"];
+                    //string data_base_name = @keyCol["data_base_name"];
 
-                var entityBuilder = new EntityConnectionStringBuilder();
-
-
-
-                conn_str = new SqlConnectionStringBuilder(entityBuilder.ProviderConnectionString)
-                {
-
-                    UserID = "sa",
-                    Password = "sasa",
-                    DataSource = sql_server.Trim('"'),
-                    InitialCatalog = data_base_name.Trim('"')
-
-                }.ConnectionString;
+                    //var entityBuilder = new EntityConnectionStringBuilder();
 
 
-                //conn_str = entityBuilder.ToString();
+
+                    //conn_str = new SqlConnectionStringBuilder(entityBuilder.ProviderConnectionString)
+                    //{
+
+                    //    UserID = "sa",
+                    //    Password = "sasa",
+                    //    DataSource = sql_server.Trim('"'),
+                    //    InitialCatalog = data_base_name.Trim('"')
+
+                    //}.ConnectionString;
+
+                    ////ConfigurationManager.ConnectionStrings.Count//
+                    ////string conStr = ConfigurationManager.ConnectionStrings["mon_pass_sql_express.Properties.Settings.ConnectionString"].ToString();
+                    ////var appSettings = ConfigurationManager.ConnectionStrings["ConnectionString"];
+                    ////var settings = ConfigurationManager.ConnectionStrings[0];
+                    ////var fi = typeof(ConfigurationElement).GetField(
+                    ////              "_bReadOnly",
+                    ////              BindingFlags.Instance | BindingFlags.NonPublic);
+                    ////fi.SetValue(settings, false);
+                    ////settings.ConnectionString = "Data Source=Something";
+
+                    ////conn_str = entityBuilder.ToString();
+
+                    ////mainTableAdapter.Connection.co
+                    ////global::mon_pass_sql_express.Properties.Settings.Default.mon_passConnectionString111111111
+
+                    //mainTableAdapter.Connection.ConnectionString = @"Provider=SQLNCLI11;Data Source=" + sql_server.Trim('"') + ";Password=Aa123456;User ID=sa;Initial Catalog=" + data_base_name.Trim('"') + ";";
+                    //one_passTableAdapter.Connection.ConnectionString = @"Provider=SQLNCLI11;Data Source=" + sql_server.Trim('"') + ";Password=Aa123456;User ID=sa;Initial Catalog=" + data_base_name.Trim('"') + ";";
+                    //main_corpTableAdapter.Connection.ConnectionString = @"Provider=SQLNCLI11;Data Source=" + sql_server.Trim('"') + ";Password=Aa123456;User ID=sa;Initial Catalog=" + data_base_name.Trim('"') + ";";
+
+                    //EntityConnectionStringBuilder entityString = new EntityConnectionStringBuilder()
+
+                    //{
+
+                    //    Provider = "System.Data.SqlClient",
+
+                    //    Metadata = "res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl",
+
+                    //    ProviderConnectionString = conn_str
+
+                    //};
+
+                    //conn_str = entityString.ToString();
 
 
-                mainTableAdapter.Connection.ConnectionString = @"Provider=SQLOLEDB;Data Source=" + sql_server.Trim('"') + ";Password=sasa;User ID=sa;Initial Catalog=" + data_base_name.Trim('"') + ";";
-                one_passTableAdapter.Connection.ConnectionString = @"Provider=SQLOLEDB;Data Source=" + sql_server.Trim('"') + ";Password=sasa;User ID=sa;Initial Catalog=" + data_base_name.Trim('"') + ";";
-                main_corpTableAdapter.Connection.ConnectionString = @"Provider=SQLOLEDB;Data Source=" + sql_server.Trim('"') + ";Password=sasa;User ID=sa;Initial Catalog=" + data_base_name.Trim('"') + ";";
-
-                EntityConnectionStringBuilder entityString = new EntityConnectionStringBuilder()
-
-                {
-
-                    Provider = "System.Data.SqlClient",
-
-                    Metadata = "res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl",
-
-                    ProviderConnectionString = conn_str
-
-                };
-
-                conn_str = entityString.ToString();
-
-                
 
 
-                //mon_pass_entities rr = new mon_pass_entities();
-                //rr.Configuration.ch
+                    //mon_pass_entities rr = new mon_pass_entities();
+                    //rr.Configuration.ch
 
-            }
-            else
-            {
-                MessageBox.Show("კონფიგურაციის ფაილი არ არსებობს!", "ყურადღება!", MessageBoxButtons.OK);
-                Environment.Exit(0);
-            }
+                //}
+                //else
+                //{
+                //    MessageBox.Show("კონფიგურაციის ფაილი არ არსებობს!", "ყურადღება!", MessageBoxButtons.OK);
+                //    Environment.Exit(0);
+                //}
 
 
                 // TODO: This line of code loads data into the 'dataSet2.DataTable3' table. You can move, or remove it, as needed.
@@ -720,230 +739,241 @@ namespace mon_pass_sql_express
                 // TODO: This line of code loads data into the 'dataSet11.DataTable3' table. You can move, or remove it, as needed.
                 //this.main_corpTableAdapter.Fill(this.dataSet11.DataTable3);
                 or_and = " or ";
-            // TODO: This line of code loads data into the 'dataSet1.DataTable1' table. You can move, or remove it, as needed.
-            //this.one_passTableAdapter.Fill(this.dataSet1.DataTable1,1);
-            //this.mainTableAdapter.Fill(this.dataSet1.DataTable2);
+                // TODO: This line of code loads data into the 'dataSet1.DataTable1' table. You can move, or remove it, as needed.
+                //this.one_passTableAdapter.Fill(this.dataSet1.DataTable1,1);
+                //this.mainTableAdapter.Fill(this.dataSet1.DataTable2);
 
-            // TODO: This line of code loads data into the 'dataSet1.DataTable2' table. You can move, or remove it, as needed.
-            //this.mainTableAdapter.Fill(this.dataSet1.DataTable2);
+                // TODO: This line of code loads data into the 'dataSet1.DataTable2' table. You can move, or remove it, as needed.
+                
 
-            Type dgvType1 = dataGridView1.GetType();
-            PropertyInfo pi1 = dgvType1.GetProperty("DoubleBuffered",
-                  BindingFlags.Instance | BindingFlags.NonPublic);
-            pi1.SetValue(dataGridView1, true, null);
+                Type dgvType1 = dataGridView1.GetType();
+                PropertyInfo pi1 = dgvType1.GetProperty("DoubleBuffered",
+                      BindingFlags.Instance | BindingFlags.NonPublic);
+                pi1.SetValue(dataGridView1, true, null);
 
-            Type dgvType2 = dataGridView3.GetType();
-            PropertyInfo pi2 = dgvType2.GetProperty("DoubleBuffered",
-                  BindingFlags.Instance | BindingFlags.NonPublic);
-            pi2.SetValue(dataGridView3, true, null);
+                Type dgvType2 = dataGridView3.GetType();
+                PropertyInfo pi2 = dgvType2.GetProperty("DoubleBuffered",
+                      BindingFlags.Instance | BindingFlags.NonPublic);
+                pi2.SetValue(dataGridView3, true, null);
 
-            Type dgvType3 = dataGridView2.GetType();
-            PropertyInfo pi3 = dgvType3.GetProperty("DoubleBuffered",
-                  BindingFlags.Instance | BindingFlags.NonPublic);
-            pi3.SetValue(dataGridView2, true, null);
+                Type dgvType3 = dataGridView2.GetType();
+                PropertyInfo pi3 = dgvType3.GetProperty("DoubleBuffered",
+                      BindingFlags.Instance | BindingFlags.NonPublic);
+                pi3.SetValue(dataGridView2, true, null);
 
 
-            list = await getpage();
-            dataGridView1.DataSource = list.ToList();
+                this.mainTableAdapter.Fill(this.dataSet1.main);
+                this.main_corpTableAdapter.Fill(this.dataSet1.main_corp);
+                this.one_passTableAdapter.Fill(this.dataSet1.one_pass);
 
-            list1 = await getpage_corp();
-            dataGridView3.DataSource = list1.ToList();
+                //list = await getpage();
+                //dataGridView1.DataSource = list.ToList();
 
-            list2 = await getpage_one_pass();
-            dataGridView2.DataSource = list2.ToList();
+                //list1 = await getpage_corp();
+                //dataGridView3.DataSource = list1.ToList();
 
-            if (list.PageCount == 0)
-            {
-                button1.Enabled = false;
-                button2.Enabled = false;
-                button4.Enabled = false;
-                button7.Enabled = false;
-            }
-            else
-            {
-                if (list.HasNextPage)
+                //list2 = await getpage_one_pass();
+                //dataGridView2.DataSource = list2.ToList();
+
+                //if (list.PageCount == 0)
+                //{
+                //    button1.Enabled = false;
+                //    button2.Enabled = false;
+                //    button4.Enabled = false;
+                //    button7.Enabled = false;
+                //}
+                //else
+                //{
+                //    if (list.HasNextPage)
+                //    {
+                //        button2.Enabled = true;
+                //        button4.Enabled = true;
+                //    }
+
+                //    if (list.HasPreviousPage)
+                //    {
+                //        button1.Enabled = true;
+                //        button7.Enabled = true;
+                //    }
+                //}
+
+                //if (list1.PageCount == 0)
+                //{
+                //    button1.Enabled = false;
+                //    button2.Enabled = false;
+                //    button4.Enabled = false;
+                //    button7.Enabled = false;
+                //}
+                //else
+                //{
+                //    if (list1.HasNextPage)
+                //    {
+                //        button2.Enabled = true;
+                //        button4.Enabled = true;
+                //    }
+
+                //    if (list1.HasPreviousPage)
+                //    {
+                //        button1.Enabled = true;
+                //        button7.Enabled = true;
+                //    }
+                //}
+
+                //if (list2.PageCount == 0)
+                //{
+                //    button1.Enabled = false;
+                //    button2.Enabled = false;
+                //    button4.Enabled = false;
+                //    button7.Enabled = false;
+                //}
+                //else
+                //{
+                //    if (list2.HasNextPage)
+                //    {
+                //        button2.Enabled = true;
+                //        button4.Enabled = true;
+                //    }
+
+                //    if (list2.HasPreviousPage)
+                //    {
+                //        button1.Enabled = true;
+                //        button7.Enabled = true;
+                //    }
+                //}
+
+
+
+                try
                 {
-                    button2.Enabled = true;
-                    button4.Enabled = true;
+                    label3.Text = "ჯამი: " + mainTableAdapter.ScalarQuery_sum_main().ToString();
+                    label4.Text = "ჯამი: " + main_corpTableAdapter.ScalarQuery_sum_main_corp().ToString();
+                }
+                catch
+                {
+                    label3.Text = "ჯამი: 0";
+                    label4.Text = "ჯამი: 0";
                 }
 
-                if (list.HasPreviousPage)
-                {
-                    button1.Enabled = true;
-                    button7.Enabled = true;
-                }
-            }
 
-            if (list1.PageCount == 0)
+                label3.Width = dataGridView1.Columns[9].Width;
+                Rectangle dd = dataGridView1.GetCellDisplayRectangle(9, -1, false);
+                label3.Location = new Point(dd.X - 55, label3.Location.Y);
+                label4.Width = dataGridView3.Columns[9].Width;
+                label4.Location = new Point(dd.X - 55, label4.Location.Y);
+
+                label3.Visible = true;
+                label4.Visible = true;
+
+                //label1.TextAlign = ContentAlignment.MiddleCenter;
+                //label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
+
+                //button1.Enabled = false;
+                //button2.Enabled = false;
+
+                //if (pagenumber == list.PageCount)
+                //{
+                //    button2.Enabled = false;
+                //    button1.Enabled = false;
+                //}
+
+                //if (pagenumber <= list.PageCount)
+                //{
+                //    button2.Enabled = true;
+                //    button1.Enabled = false;
+                //}
+
+
+
+                filter_boxses();
+                filter_boxses_corp();
+                filter_boxses_one_pass();
+                panel2.Visible = false;
+                //label3.Text = "ჯამი: 5555";
+            }
+            catch (Exception ex)
             {
-                button1.Enabled = false;
-                button2.Enabled = false;
-                button4.Enabled = false;
-                button7.Enabled = false;
-            }
-            else
-            {
-                if (list1.HasNextPage)
-                {
-                    button2.Enabled = true;
-                    button4.Enabled = true;
-                }
-
-                if (list1.HasPreviousPage)
-                {
-                    button1.Enabled = true;
-                    button7.Enabled = true;
-                }
+                MessageBox.Show(ex.ToString(), "ყურადღება!", MessageBoxButtons.OK);
             }
 
-            if (list2.PageCount == 0)
-            {
-                button1.Enabled = false;
-                button2.Enabled = false;
-                button4.Enabled = false;
-                button7.Enabled = false;
-            }
-            else
-            {
-                if (list2.HasNextPage)
-                {
-                    button2.Enabled = true;
-                    button4.Enabled = true;
-                }
-
-                if (list2.HasPreviousPage)
-                {
-                    button1.Enabled = true;
-                    button7.Enabled = true;
-                }
-            }
-
-
-
-            try
-            {
-                label3.Text = "ჯამი: " + mainTableAdapter.ScalarQuery_sum_main().ToString();
-                label4.Text = "ჯამი: " + main_corpTableAdapter.ScalarQuery_sum_main_corp().ToString();
-            }
-            catch
-            {
-                label3.Text = "ჯამი: 0";
-                label4.Text = "ჯამი: 0";
-            }
-
-
-            label3.Width = dataGridView1.Columns[9].Width;
-            Rectangle dd = dataGridView1.GetCellDisplayRectangle(9, -1, false);
-            label3.Location = new Point(dd.X - 55, label3.Location.Y);
-            label4.Width = dataGridView3.Columns[9].Width;
-            label4.Location = new Point(dd.X - 55, label4.Location.Y);
-
-            label3.Visible = true;
-            label4.Visible = true;
-
-            label1.TextAlign = ContentAlignment.MiddleCenter;
-            label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
-
-            //button1.Enabled = false;
-            //button2.Enabled = false;
-
-            //if (pagenumber == list.PageCount)
-            //{
-            //    button2.Enabled = false;
-            //    button1.Enabled = false;
-            //}
-
-            //if (pagenumber <= list.PageCount)
-            //{
-            //    button2.Enabled = true;
-            //    button1.Enabled = false;
-            //}
-
-
-
-            filter_boxses();
-            filter_boxses_corp();
-            filter_boxses_one_pass();
-            panel2.Visible = false;
-            //label3.Text = "ჯამი: 5555";
+            
 
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
 
-            if (tabControl1.SelectedIndex == 0)
-            {
-                if (list.HasPreviousPage)
-                {
-                    pagenumber = pagenumber - 1;
-                    list = await getpage(pagenumber);
-                    dataGridView1.DataSource = list.ToList();
-                    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
-                    button2.Enabled = true;
-                    button4.Enabled = true;
-                }
-                else
-                {
-                    button1.Enabled = false;
-                    button7.Enabled = false;
-                }
-                if (!list.HasPreviousPage)
-                {
-                    button1.Enabled = false;
-                    button7.Enabled = false;
-                }
-                relocate_filter_text_box();
-            }
+            //if (tabControl1.SelectedIndex == 0)
+            //{
+            //    if (list.HasPreviousPage)
+            //    {
+            //        pagenumber = pagenumber - 1;
+            //        list = await getpage(pagenumber);
+            //        dataGridView1.DataSource = list.ToList();
+            //        label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
+            //        button2.Enabled = true;
+            //        button4.Enabled = true;
+            //    }
+            //    else
+            //    {
+            //        button1.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    if (!list.HasPreviousPage)
+            //    {
+            //        button1.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    relocate_filter_text_box();
+            //}
 
-            if (tabControl1.SelectedIndex == 1)
-            {
-                if (list1.HasPreviousPage)
-                {
-                    pagenumber_2 = pagenumber_2 - 1;
-                    list1 = await getpage_corp(pagenumber_2);
-                    dataGridView3.DataSource = list1.ToList();
-                    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
-                    button2.Enabled = true;
-                    button4.Enabled = true;
-                }
-                else
-                {
-                    button1.Enabled = false;
-                    button7.Enabled = false;
-                }
-                if (!list1.HasPreviousPage)
-                {
-                    button1.Enabled = false;
-                    button7.Enabled = false;
-                }
+            //if (tabControl1.SelectedIndex == 1)
+            //{
+            //    if (list1.HasPreviousPage)
+            //    {
+            //        pagenumber_2 = pagenumber_2 - 1;
+            //        list1 = await getpage_corp(pagenumber_2);
+            //        dataGridView3.DataSource = list1.ToList();
+            //        label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
+            //        button2.Enabled = true;
+            //        button4.Enabled = true;
+            //    }
+            //    else
+            //    {
+            //        button1.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    if (!list1.HasPreviousPage)
+            //    {
+            //        button1.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
 
-                relocate_filter_text_box_corp();
-            }
+            //    relocate_filter_text_box_corp();
+            //}
 
-            if (tabControl1.SelectedIndex == 2)
-            {
-                if (list2.HasPreviousPage)
-                {
-                    pagenumber_3 = pagenumber_3 - 1;
-                    list2 = await getpage_one_pass(pagenumber_3);
-                    dataGridView2.DataSource = list2.ToList();
-                    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list2.PageCount);
-                    button2.Enabled = true;
-                    button4.Enabled = true;
-                }
-                else
-                {
-                    button1.Enabled = false;
-                    button7.Enabled = false;
-                }
-                if (!list2.HasPreviousPage)
-                {
-                    button1.Enabled = false;
-                    button7.Enabled = false;
-                }
-                relocate_filter_text_box_one_pass();
-            }
+            //if (tabControl1.SelectedIndex == 2)
+            //{
+            //    if (list2.HasPreviousPage)
+            //    {
+            //        pagenumber_3 = pagenumber_3 - 1;
+            //        list2 = await getpage_one_pass(pagenumber_3);
+            //        dataGridView2.DataSource = list2.ToList();
+            //        label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list2.PageCount);
+            //        button2.Enabled = true;
+            //        button4.Enabled = true;
+            //    }
+            //    else
+            //    {
+            //        button1.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    if (!list2.HasPreviousPage)
+            //    {
+            //        button1.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    relocate_filter_text_box_one_pass();
+            //}
 
 
 
@@ -952,78 +982,78 @@ namespace mon_pass_sql_express
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 0)
-            {
-                if (list.HasNextPage)
-                {
-                    pagenumber = pagenumber + 1;
-                    list = await getpage(pagenumber);
-                    dataGridView1.DataSource = list.ToList();
-                    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
-                    button1.Enabled = true;
-                    button7.Enabled = true;
+            //if (tabControl1.SelectedIndex == 0)
+            //{
+            //    if (list.HasNextPage)
+            //    {
+            //        pagenumber = pagenumber + 1;
+            //        list = await getpage(pagenumber);
+            //        dataGridView1.DataSource = list.ToList();
+            //        label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
+            //        button1.Enabled = true;
+            //        button7.Enabled = true;
 
-                }
-                else
-                {
-                    button2.Enabled = false;
-                    button4.Enabled = false;
-                }
-                if (!list.HasNextPage)
-                {
-                    button2.Enabled = false;
-                    button4.Enabled = false;
-                }
-                relocate_filter_text_box();
-            }
-            if (tabControl1.SelectedIndex == 1)
-            {
-                if (list1.HasNextPage)
-                {
-                    pagenumber_2 = pagenumber_2 + 1;
-                    list1 = await getpage_corp(pagenumber_2);
-                    dataGridView3.DataSource = list1.ToList();
-                    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
-                    button1.Enabled = true;
-                    button7.Enabled = true;
-                }
-                else
-                {
-                    button2.Enabled = false;
-                    button7.Enabled = false;
-                }
-                if (!list1.HasNextPage)
-                {
-                    button2.Enabled = false;
-                    button4.Enabled = false;
-                }
+            //    }
+            //    else
+            //    {
+            //        button2.Enabled = false;
+            //        button4.Enabled = false;
+            //    }
+            //    if (!list.HasNextPage)
+            //    {
+            //        button2.Enabled = false;
+            //        button4.Enabled = false;
+            //    }
+            //    relocate_filter_text_box();
+            //}
+            //if (tabControl1.SelectedIndex == 1)
+            //{
+            //    if (list1.HasNextPage)
+            //    {
+            //        pagenumber_2 = pagenumber_2 + 1;
+            //        list1 = await getpage_corp(pagenumber_2);
+            //        dataGridView3.DataSource = list1.ToList();
+            //        label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
+            //        button1.Enabled = true;
+            //        button7.Enabled = true;
+            //    }
+            //    else
+            //    {
+            //        button2.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    if (!list1.HasNextPage)
+            //    {
+            //        button2.Enabled = false;
+            //        button4.Enabled = false;
+            //    }
 
-                relocate_filter_text_box_corp();
-            }
+            //    relocate_filter_text_box_corp();
+            //}
 
-            if (tabControl1.SelectedIndex == 2)
-            {
-                if (list2.HasNextPage)
-                {
-                    pagenumber_3 = pagenumber_3 + 1;
-                    list2 = await getpage_one_pass(pagenumber_3);
-                    dataGridView2.DataSource = list2.ToList();
-                    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list2.PageCount);
-                    button1.Enabled = true;
-                    button7.Enabled = true;
-                }
-                else
-                {
-                    button2.Enabled = false;
-                    button7.Enabled = false;
-                }
-                if (!list2.HasNextPage)
-                {
-                    button2.Enabled = false;
-                    button7.Enabled = false;
-                }
-                relocate_filter_text_box_one_pass();
-            }
+            //if (tabControl1.SelectedIndex == 2)
+            //{
+            //    if (list2.HasNextPage)
+            //    {
+            //        pagenumber_3 = pagenumber_3 + 1;
+            //        list2 = await getpage_one_pass(pagenumber_3);
+            //        dataGridView2.DataSource = list2.ToList();
+            //        label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list2.PageCount);
+            //        button1.Enabled = true;
+            //        button7.Enabled = true;
+            //    }
+            //    else
+            //    {
+            //        button2.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    if (!list2.HasNextPage)
+            //    {
+            //        button2.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    relocate_filter_text_box_one_pass();
+            //}
 
 
 
@@ -1147,7 +1177,8 @@ namespace mon_pass_sql_express
                             {
                                 DateTime dt = DateTime.Parse(temp.Text);
                                 string datestring = dt.ToString("HH:mm");
-                                filter_text = filter_text + "strftime('%H:%M', ttime)='" + datestring + "'" + or_and;
+                                //filter_text = filter_text + "ttime='" + datestring + "'" + or_and;
+                                filter_text = filter_text + "ttime='"+"23:25:50"+ "'" + or_and;
                             }
                             //SELECT strftime('%H:%M:%S',ttime) FROM one_pass where strftime('%H:%M',ttime) between '22:16' and '22:16'
                         }
@@ -1229,8 +1260,8 @@ namespace mon_pass_sql_express
                     DateTime dt1 = DateTime.Parse(temp1.Text);
                     DateTime dt2 = DateTime.Parse(temp2.Text);
 
-                    string datestring1 = dt1.ToString("yyyy-MM-dd") + " 00:00:00";
-                    string datestring2 = dt2.ToString("yyyy-MM-dd") + " 00:00:00";
+                    string datestring1 = dt1.ToString("yyyy-MM-dd");
+                    string datestring2 = dt2.ToString("yyyy-MM-dd");
 
                     int result = DateTime.Compare(dt1, dt2);
 
@@ -1284,13 +1315,13 @@ namespace mon_pass_sql_express
                     filter_text = filter_text.Substring(0, filter_text.Length - 4);
                 }
 
-                list2 = await getpage_filter_one_pass(filter_text);
-                dataGridView2.DataSource = list2.ToList();
+                //list2 = await getpage_filter_one_pass(filter_text);
+                //dataGridView2.DataSource = list2.ToList();
             }
             else
             {
-                list2 = await getpage_filter_all_one_pass();
-                dataGridView2.DataSource = list2.ToList();
+                //list2 = await getpage_filter_all_one_pass();
+                //dataGridView2.DataSource = list2.ToList();
                 try
                 {
                     label3.Text = "ჯამი: " + mainTableAdapter.ScalarQuery_sum_main().ToString();
@@ -1307,19 +1338,23 @@ namespace mon_pass_sql_express
 
             //dataGridView1.Refresh();
             //.DefaultView.RowFilter = string.Format("Field = '{0}'", textBoxFilter.Text);
-            return;
+            //return;
             if (!string.IsNullOrWhiteSpace(filter_text))
             {
-                filter_text = filter_text.Substring(0, filter_text.Length - 5);
-                (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = filter_text;
+                //filter_text = filter_text.Substring(0, filter_text.Length - 5);
+                //(dataGridView1.DataSource as DataTable).DefaultView.RowFilter = filter_text;
+                one_passBindingSource.Filter = filter_text;
+                
+
             }
             else
             {
-                (dataGridView1.DataSource as BindingSource).Filter = "";
+                //(dataGridView1.DataSource as BindingSource).Filter = "";
+                one_passBindingSource.Filter = "";
             }
 
 
-            dataGridView1.Refresh();
+            dataGridView2.Refresh();
         }
 
         public async void FFilter_grid_corp()
@@ -1353,7 +1388,16 @@ namespace mon_pass_sql_express
                             //{
                             //    filter_text = filter_text + dataGridView1.Columns[i].DataPropertyName + " LIKE '%" + temp.Text + "%'" + or_and;
                             //}
-                            filter_text = filter_text + dataGridView3.Columns[i].DataPropertyName + " LIKE '%" + temp.Text + "%'" + or_and;
+
+                            if (i == 9)
+                            {
+                                filter_text = filter_text + dataGridView3.Columns[i].DataPropertyName + " = " + temp.Text + or_and;
+                            }
+                            else
+                            {
+                                filter_text = filter_text + dataGridView3.Columns[i].DataPropertyName + " LIKE '%" + temp.Text + "%'" + or_and;
+                            }
+                            
                         }
 
                     }
@@ -1397,8 +1441,8 @@ namespace mon_pass_sql_express
                     DateTime dt1 = DateTime.Parse(temp1.Text);
                     DateTime dt2 = DateTime.Parse(temp2.Text);
 
-                    string datestring1 = dt1.ToString("yyyy-MM-dd") + " 00:00:00";
-                    string datestring2 = dt2.ToString("yyyy-MM-dd") + " 00:00:00";
+                    string datestring1 = dt1.ToString("yyyy-MM-dd");
+                    string datestring2 = dt2.ToString("yyyy-MM-dd");
 
                     int result = DateTime.Compare(dt1, dt2);
 
@@ -1449,13 +1493,13 @@ namespace mon_pass_sql_express
                     filter_text = filter_text.Substring(0, filter_text.Length - 4);
                 }
 
-                list1 = await getpage_filter_corp(filter_text);
-                dataGridView3.DataSource = list1.ToList();
+                //list1 = await getpage_filter_corp(filter_text);
+                //dataGridView3.DataSource = list1.ToList();
             }
             else
             {
-                list1 = await getpage_filter_all_corp();
-                dataGridView3.DataSource = list1.ToList();
+                //list1 = await getpage_filter_all_corp();
+                //dataGridView3.DataSource = list1.ToList();
                 try
                 {
                     label3.Text = "ჯამი: " + mainTableAdapter.ScalarQuery_sum_main().ToString();
@@ -1472,15 +1516,43 @@ namespace mon_pass_sql_express
 
             //dataGridView1.Refresh();
             //.DefaultView.RowFilter = string.Format("Field = '{0}'", textBoxFilter.Text);
-            return;
+                //return;
             if (!string.IsNullOrWhiteSpace(filter_text))
             {
-                filter_text = filter_text.Substring(0, filter_text.Length - 5);
-                (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = filter_text;
+                //filter_text = filter_text.Substring(0, filter_text.Length - 5);
+                //(dataGridView1.DataSource as DataTable).DefaultView.RowFilter = filter_text;
+                main_corpBindingSource.Filter = filter_text;
+                SqlConnection con = new SqlConnection();
+
+
+                string connectionString = ConfigurationManager.ConnectionStrings["mon_pass_sql_express.Properties.Settings.ConnectionString"].ConnectionString;
+
+                //string connectionString = mainTableAdapter.Connection.ConnectionString;
+                connectionString = connectionString.Trim(';');
+                var connStrDictionary = connectionString.Split(';').Select(x => x.Split('=')).ToDictionary(x => x[0], x => x[1]);
+                connectionString = "Data Source=" + connStrDictionary["Data Source"] + ";Initial Catalog=" + connStrDictionary["Initial Catalog"] + ";User ID=" + connStrDictionary["User ID"]+ ";Password="+ connStrDictionary["Password"];
+
+
+
+                filter_text = filter_text.Replace("LIKE '", "LIKE N'");
+                con.ConnectionString = connectionString;
+                SqlCommand cmd = new SqlCommand("select sum(qty) as dd from main_corp where "+ filter_text, con);
+                con.Open();
+                try
+                {
+                    decimal count = Convert.ToDecimal(cmd.ExecuteScalar());
+                    label4.Text = "ჯამი: " + count.ToString();
+                }
+                catch
+                {
+                    label4.Text = "ჯამი: ";
+                }
+                con.Close();
             }
             else
             {
-                (dataGridView1.DataSource as BindingSource).Filter = "";
+                //(dataGridView1.DataSource as BindingSource).Filter = "";
+                main_corpBindingSource.Filter = "";
             }
 
 
@@ -1507,19 +1579,39 @@ namespace mon_pass_sql_express
 
                     if (temp is TextBox)
                     {
-                        if (!string.IsNullOrWhiteSpace(temp.Text))
+                        if (i==9)
                         {
-                            //var isNumeric = int.TryParse(temp.Text, out int n);
-                            //if (dataGridView1.Columns[i].DataPropertyName == "plc_refresh_second" || dataGridView1.Columns[i].DataPropertyName == "plc_only_change_precision")
-                            //{
-                            //    filter_text = filter_text + dataGridView1.Columns[i].DataPropertyName + "=" + temp.Text + or_and;
-                            //}
-                            //else
-                            //{
-                            //    filter_text = filter_text + dataGridView1.Columns[i].DataPropertyName + " LIKE '%" + temp.Text + "%'" + or_and;
-                            //}
-                            filter_text = filter_text + dataGridView1.Columns[i].DataPropertyName + " LIKE '%" + temp.Text + "%'" + or_and;
+                            if (!string.IsNullOrWhiteSpace(temp.Text))
+                            {
+                                //var isNumeric = int.TryParse(temp.Text, out int n);
+                                //if (dataGridView1.Columns[i].DataPropertyName == "plc_refresh_second" || dataGridView1.Columns[i].DataPropertyName == "plc_only_change_precision")
+                                //{
+                                //    filter_text = filter_text + dataGridView1.Columns[i].DataPropertyName + "=" + temp.Text + or_and;
+                                //}
+                                //else
+                                //{
+                                //    filter_text = filter_text + dataGridView1.Columns[i].DataPropertyName + " LIKE '%" + temp.Text + "%'" + or_and;
+                                //}
+                                filter_text = filter_text + dataGridView1.Columns[i].DataPropertyName + " = " + temp.Text + or_and;
+                            }
                         }
+                        else
+                        {
+                            if (!string.IsNullOrWhiteSpace(temp.Text))
+                            {
+                                //var isNumeric = int.TryParse(temp.Text, out int n);
+                                //if (dataGridView1.Columns[i].DataPropertyName == "plc_refresh_second" || dataGridView1.Columns[i].DataPropertyName == "plc_only_change_precision")
+                                //{
+                                //    filter_text = filter_text + dataGridView1.Columns[i].DataPropertyName + "=" + temp.Text + or_and;
+                                //}
+                                //else
+                                //{
+                                //    filter_text = filter_text + dataGridView1.Columns[i].DataPropertyName + " LIKE '%" + temp.Text + "%'" + or_and;
+                                //}
+                                filter_text = filter_text + dataGridView1.Columns[i].DataPropertyName + " LIKE '%" + temp.Text + "%'" + or_and;
+                            }
+                        }
+                        
 
                     }
 
@@ -1604,8 +1696,8 @@ namespace mon_pass_sql_express
                     DateTime dt1 = DateTime.Parse(temp1.Text);
                     DateTime dt2 = DateTime.Parse(temp2.Text);
 
-                    string datestring1 = dt1.ToString("yyyy-MM-dd") + " 00:00:00";
-                    string datestring2 = dt2.ToString("yyyy-MM-dd") + " 00:00:00";
+                    string datestring1 = dt1.ToString("yyyy-MM-dd");
+                    string datestring2 = dt2.ToString("yyyy-MM-dd");
 
                     int result = DateTime.Compare(dt1, dt2);
 
@@ -1656,16 +1748,16 @@ namespace mon_pass_sql_express
                     filter_text = filter_text.Substring(0, filter_text.Length - 4);
                 }
 
-                list = await getpage_filter(filter_text);
-                dataGridView1.DataSource = list.ToList();
+                //list = await getpage_filter(filter_text);
+                //dataGridView1.DataSource = list.ToList();
 
 
 
             }
             else
             {
-                list = await getpage_filter_all();
-                dataGridView1.DataSource = list.ToList();
+                //list = await getpage_filter_all();
+                //dataGridView1.DataSource = list.ToList();
                 try
                 {
                     label3.Text = "ჯამი: " + mainTableAdapter.ScalarQuery_sum_main().ToString();
@@ -1682,15 +1774,44 @@ namespace mon_pass_sql_express
 
             //dataGridView1.Refresh();
             //.DefaultView.RowFilter = string.Format("Field = '{0}'", textBoxFilter.Text);
-            return;
+            //return;
             if (!string.IsNullOrWhiteSpace(filter_text))
             {
-                filter_text = filter_text.Substring(0, filter_text.Length - 5);
-                (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = filter_text;
+                //ilter_text = filter_text.Substring(0, filter_text.Length - 5);
+                mainBindingSource.Filter = filter_text;
+                //DataView dv = (dataGridView1.DataSource as DataTable).DefaultView;
+                //(dataGridView1.DataSource as DataTable).DefaultView.RowFilter = filter_text;
+                SqlConnection con = new SqlConnection();
+
+
+                string connectionString = ConfigurationManager.ConnectionStrings["mon_pass_sql_express.Properties.Settings.ConnectionString"].ConnectionString;
+
+                //string connectionString = mainTableAdapter.Connection.ConnectionString;
+                connectionString = connectionString.Trim(';');
+                var connStrDictionary = connectionString.Split(';').Select(x => x.Split('=')).ToDictionary(x => x[0], x => x[1]);
+                connectionString = "Data Source=" + connStrDictionary["Data Source"] + ";Initial Catalog=" + connStrDictionary["Initial Catalog"] + ";User ID=" + connStrDictionary["User ID"] + ";Password=" + connStrDictionary["Password"];
+
+
+                filter_text = filter_text.Replace("LIKE '", "LIKE N'");
+
+                con.ConnectionString = connectionString;
+                SqlCommand cmd = new SqlCommand("select sum(qty) as dd from main where " + filter_text, con);
+                con.Open();
+                try
+                {
+                    decimal count = Convert.ToDecimal(cmd.ExecuteScalar());
+                    label3.Text = "ჯამი: " + count.ToString();
+                }
+                catch
+                {
+                    label3.Text = "ჯამი: ";
+                }
+                
+                con.Close();
             }
             else
             {
-                (dataGridView1.DataSource as BindingSource).Filter = "";
+                mainBindingSource.Filter = "";
             }
 
 
@@ -1783,7 +1904,15 @@ namespace mon_pass_sql_express
                         temp_che.ForeColor = Color.Navy;
                         temp_che.Height = 29;
                         temp_che.TextChanged += new System.EventHandler(_temp_che_CheckstateChanged);
-                        dataGridView1.Controls.Add(temp_che);
+                        if (dataGridView1.InvokeRequired)
+                        {
+                            dataGridView1.Invoke(new Action(() => dataGridView1.Controls.Add(temp_che)));
+                            //dataGridView1.Controls.Add(txtbox);
+                        }
+                        else
+                        {
+                            dataGridView1.Controls.Add(temp_che);
+                        }
 
 
                         temp_che = new MaskedTextBox();
@@ -1805,7 +1934,16 @@ namespace mon_pass_sql_express
                         temp_che.ForeColor = Color.Navy;
                         temp_che.Height = 29;
                         temp_che.TextChanged += new System.EventHandler(_temp_che_CheckstateChanged);
-                        dataGridView1.Controls.Add(temp_che);
+                        //dataGridView1.Controls.Add(temp_che);
+                        if (dataGridView1.InvokeRequired)
+                        {
+                            dataGridView1.Invoke(new Action(() => dataGridView1.Controls.Add(temp_che)));
+                            //dataGridView1.Controls.Add(txtbox);
+                        }
+                        else
+                        {
+                            dataGridView1.Controls.Add(temp_che);
+                        }
 
 
 
@@ -1832,7 +1970,16 @@ namespace mon_pass_sql_express
                         txtbox.Enabled = true;
                         txtbox.ForeColor = Color.Navy;
                         txtbox.TextChanged += new System.EventHandler(_txtbox_TextChanged);
-                        dataGridView1.Controls.Add(txtbox);
+                        if (dataGridView1.InvokeRequired)
+                        {
+                            dataGridView1.Invoke(new Action(() => dataGridView1.Controls.Add(txtbox)));
+                            //dataGridView1.Controls.Add(txtbox);
+                        }
+                        else
+                        {
+                            dataGridView1.Controls.Add(txtbox);
+                        }
+                        
 
 
                     }
@@ -1859,28 +2006,36 @@ namespace mon_pass_sql_express
 
                     if (i == 7)
                     {
-                        MaskedTextBox temp_che_222 = new MaskedTextBox();
-                        //temp_che.CustomFormat = "dd.mm.yyyy";
-                        //temp_che.Format = DateTimePickerFormat.Custom;
-                        temp_che_222.Name = "maskedTextBox_one_pass_time_1";
-                        temp_che_222.Mask = "00:00";
-                        temp_che_222.Tag = i;
-                        Rectangle dd = dataGridView2.GetCellDisplayRectangle(i, -1, true);
-                        temp_che_222.Width = (dd.Width / 2) - 8;
-                        temp_che_222.BackColor = SystemColors.Window;
-                        temp_che_222.AutoSize = false;
-                        temp_che_222.Height = 20;
-                        //temp_che.Location = new Point(dd.X + 3, dd.Y + 20);
-                        temp_che_222.Anchor = AnchorStyles.None;
-                        //temp_che.Location = new Point((dd.X + (dd.Width / 2)) - 7, dd.Y + 22);
-                        temp_che_222.Location = new Point(dd.X + 3, dd.Y + 48);
-                        //temp_che.Location = new Point(9, 9);
-                        temp_che_222.Visible = true;
-                        temp_che_222.Enabled = true;
-                        temp_che_222.ForeColor = Color.Navy;
-                        temp_che_222.Height = 29;
-                        temp_che_222.TextChanged += new System.EventHandler(_temp_che_CheckstateChanged_one_pass);
-                        dataGridView2.Controls.Add(temp_che_222);
+                        //MaskedTextBox temp_che_222 = new MaskedTextBox();
+                        ////temp_che.CustomFormat = "dd.mm.yyyy";
+                        ////temp_che.Format = DateTimePickerFormat.Custom;
+                        //temp_che_222.Name = "maskedTextBox_one_pass_time_1";
+                        //temp_che_222.Mask = "00:00";
+                        //temp_che_222.Tag = i;
+                        //Rectangle dd = dataGridView2.GetCellDisplayRectangle(i, -1, true);
+                        //temp_che_222.Width = (dd.Width / 2) - 8;
+                        //temp_che_222.BackColor = SystemColors.Window;
+                        //temp_che_222.AutoSize = false;
+                        //temp_che_222.Height = 20;
+                        ////temp_che.Location = new Point(dd.X + 3, dd.Y + 20);
+                        //temp_che_222.Anchor = AnchorStyles.None;
+                        ////temp_che.Location = new Point((dd.X + (dd.Width / 2)) - 7, dd.Y + 22);
+                        //temp_che_222.Location = new Point(dd.X + 3, dd.Y + 48);
+                        ////temp_che.Location = new Point(9, 9);
+                        //temp_che_222.Visible = true;
+                        //temp_che_222.Enabled = true;
+                        //temp_che_222.ForeColor = Color.Navy;
+                        //temp_che_222.Height = 29;
+                        //temp_che_222.TextChanged += new System.EventHandler(_temp_che_CheckstateChanged_one_pass);
+                        //if (dataGridView2.InvokeRequired)
+                        //{
+                        //    dataGridView2.Invoke(new Action(() => dataGridView2.Controls.Add(temp_che_222)));
+                        //    //dataGridView1.Controls.Add(txtbox);
+                        //}
+                        //else
+                        //{
+                        //    dataGridView2.Controls.Add(temp_che_222);
+                        //}
 
                     }
                     if (i == 8)
@@ -1906,7 +2061,16 @@ namespace mon_pass_sql_express
                         temp_che.ForeColor = Color.Navy;
                         temp_che.Height = 29;
                         temp_che.TextChanged += new System.EventHandler(_temp_che_CheckstateChanged_one_pass);
-                        dataGridView2.Controls.Add(temp_che);
+                        //dataGridView2.Controls.Add(temp_che);
+                        if (dataGridView2.InvokeRequired)
+                        {
+                            dataGridView2.Invoke(new Action(() => dataGridView2.Controls.Add(temp_che)));
+                            //dataGridView1.Controls.Add(txtbox);
+                        }
+                        else
+                        {
+                            dataGridView2.Controls.Add(temp_che);
+                        }
 
                         var temp_che_2 = new MaskedTextBox();
                         temp_che_2.Name = "maskedTextBox_one_pass_2";
@@ -1927,13 +2091,29 @@ namespace mon_pass_sql_express
                         temp_che_2.ForeColor = Color.Navy;
                         temp_che_2.Height = 29;
                         temp_che_2.TextChanged += new System.EventHandler(_temp_che_CheckstateChanged_one_pass);
-                        dataGridView2.Controls.Add(temp_che_2);
+                        //dataGridView2.Controls.Add(temp_che_2);
+                        if (dataGridView2.InvokeRequired)
+                        {
+                            dataGridView2.Invoke(new Action(() => dataGridView2.Controls.Add(temp_che_2)));
+                            //dataGridView1.Controls.Add(txtbox);
+                        }
+                        else
+                        {
+                            dataGridView2.Controls.Add(temp_che_2);
+                        }
 
                     }
                     else
                     {
 
-                        TextBox txtbox = new TextBox();
+                        if (i == 7)
+                        {
+
+                        }
+                        else
+                        { 
+
+                            TextBox txtbox = new TextBox();
                         txtbox.Name = "TxtBoxVol_one_pass" + i.ToString();
                         txtbox.Tag = i;
                         //txtbox.Text = i.ToString();
@@ -1952,9 +2132,18 @@ namespace mon_pass_sql_express
                         txtbox.Enabled = true;
                         txtbox.ForeColor = Color.Navy;
                         txtbox.TextChanged += new System.EventHandler(_txtbox_TextChanged_one_pass);
-                        dataGridView2.Controls.Add(txtbox);
+                        //dataGridView2.Controls.Add(txtbox);
+                        if (dataGridView2.InvokeRequired)
+                        {
+                            dataGridView2.Invoke(new Action(() => dataGridView2.Controls.Add(txtbox)));
+                            //dataGridView1.Controls.Add(txtbox);
+                        }
+                        else
+                        {
+                            dataGridView2.Controls.Add(txtbox);
+                        }
 
-
+                        }
 
                         //dataGridView3.Columns[i].HeaderCell.po
 
@@ -2007,7 +2196,16 @@ namespace mon_pass_sql_express
                         temp_che.ForeColor = Color.Navy;
                         temp_che.Height = 29;
                         temp_che.TextChanged += new System.EventHandler(_temp_che_CheckstateChanged_corp);
-                        dataGridView3.Controls.Add(temp_che);
+                        //dataGridView3.Controls.Add(temp_che);
+                        if (dataGridView3.InvokeRequired)
+                        {
+                            dataGridView3.Invoke(new Action(() => dataGridView3.Controls.Add(temp_che)));
+                            //dataGridView1.Controls.Add(txtbox);
+                        }
+                        else
+                        {
+                            dataGridView3.Controls.Add(temp_che);
+                        }
 
                         var temp_che_2 = new MaskedTextBox();
                         temp_che_2.Name = "maskedTextBox_corp_2";
@@ -2028,8 +2226,16 @@ namespace mon_pass_sql_express
                         temp_che_2.ForeColor = Color.Navy;
                         temp_che_2.Height = 29;
                         temp_che_2.TextChanged += new System.EventHandler(_temp_che_CheckstateChanged_corp);
-                        dataGridView3.Controls.Add(temp_che_2);
-
+                        //dataGridView3.Controls.Add(temp_che_2);
+                        if (dataGridView3.InvokeRequired)
+                        {
+                            dataGridView3.Invoke(new Action(() => dataGridView3.Controls.Add(temp_che_2)));
+                            //dataGridView1.Controls.Add(txtbox);
+                        }
+                        else
+                        {
+                            dataGridView3.Controls.Add(temp_che_2);
+                        }
                     }
                     else
                     {
@@ -2053,8 +2259,16 @@ namespace mon_pass_sql_express
                         txtbox.Enabled = true;
                         txtbox.ForeColor = Color.Navy;
                         txtbox.TextChanged += new System.EventHandler(_txtbox_TextChanged_corp);
-                        dataGridView3.Controls.Add(txtbox);
-
+                        //dataGridView3.Controls.Add(txtbox);
+                        if (dataGridView3.InvokeRequired)
+                        {
+                            dataGridView3.Invoke(new Action(() => dataGridView3.Controls.Add(txtbox)));
+                            //dataGridView1.Controls.Add(txtbox);
+                        }
+                        else
+                        {
+                            dataGridView3.Controls.Add(txtbox);
+                        }
 
 
                         //dataGridView3.Columns[i].HeaderCell.po
@@ -2081,11 +2295,12 @@ namespace mon_pass_sql_express
                 variables.add_edit_ = true;
                 add_edit fo = new add_edit();
                 fo.Text = "GM დამატება / რედაქტირება";
+                variables.yyes = false;
                 fo.ShowDialog();
                 if (variables.yyes)
                 {
 
-                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd") + " 00:00:00"; ;
+                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd");
 
                     mainTableAdapter.InsertQuery_main(
                     variables.textBox1_Text,
@@ -2095,16 +2310,20 @@ namespace mon_pass_sql_express
                     variables.textBox5_Text,
                     variables.textBox6_Text,
                     variables.textBox7_Text,
-                    DateTime.ParseExact(datestring, "yyyy-MM-dd 00:00:00", CultureInfo.InvariantCulture),
+                    DateTime.ParseExact(datestring, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                     variables.numericUpDown1_);
 
 
 
-                    list = await getpage_update_grid();
-                    dataGridView1.DataSource = list.ToList();
-                    label1.Text = string.Format("გვერდი {0}/{1} დან", list.PageCount, list.PageCount);
-                    button2.Enabled = false;
-                    if (list.PageCount > 1) { button1.Enabled = true; }
+                    //list = await getpage_update_grid();
+                    //dataGridView1.DataSource = list.ToList();
+                    //label1.Text = string.Format("გვერდი {0}/{1} დან", list.PageCount, list.PageCount);
+                    //button2.Enabled = false;
+                    //if (list.PageCount > 1) { button1.Enabled = true; }
+
+                    this.mainTableAdapter.Fill(this.dataSet1.main);
+                    //this.main_corpTableAdapter.Fill(this.dataSet1.main_corp);
+                    //this.one_passTableAdapter.Fill(this.dataSet1.one_pass);
 
                     int nRowIndex = dataGridView1.Rows.Count - 1;
                     dataGridView1.ClearSelection();
@@ -2117,11 +2336,12 @@ namespace mon_pass_sql_express
                 variables.add_edit_ = true;
                 add_edit fo = new add_edit();
                 fo.Text = "CORP დამატება / რედაქტირება";
+                variables.yyes = false;
                 fo.ShowDialog();
                 if (variables.yyes)
                 {
 
-                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd") + " 00:00:00"; ;
+                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd");
 
                     main_corpTableAdapter.InsertQuery_main_corp(
                     variables.textBox1_Text,
@@ -2131,16 +2351,19 @@ namespace mon_pass_sql_express
                     variables.textBox5_Text,
                     variables.textBox6_Text,
                     variables.textBox7_Text,
-                    DateTime.ParseExact(datestring, "yyyy-MM-dd 00:00:00", CultureInfo.InvariantCulture),
+                    DateTime.ParseExact(datestring, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                     variables.numericUpDown1_);
 
 
 
-                    list1 = await getpage_update_grid_corp();
-                    dataGridView3.DataSource = list1.ToList();
-                    label1.Text = string.Format("გვერდი {0}/{1} დან", list1.PageCount, list1.PageCount);
-                    button2.Enabled = false;
-                    if (list1.PageCount > 1) { button1.Enabled = true; }
+                    //list1 = await getpage_update_grid_corp();
+                    //dataGridView3.DataSource = list1.ToList();
+                    //label1.Text = string.Format("გვერდი {0}/{1} დან", list1.PageCount, list1.PageCount);
+                    //button2.Enabled = false;
+                    //if (list1.PageCount > 1) { button1.Enabled = true; }
+
+                    this.main_corpTableAdapter.Fill(this.dataSet1.main_corp);
+                    
 
                     int nRowIndex = dataGridView3.Rows.Count - 1;
                     dataGridView3.ClearSelection();
@@ -2154,10 +2377,11 @@ namespace mon_pass_sql_express
                 variables.add_edit_ = true;
                 add_edit_one_pass fo = new add_edit_one_pass();
                 fo.Text = "ერთჯერადი საშვი დამატება / რედაქტირება";
+                variables.yyes = false;
                 fo.ShowDialog();
                 if (variables.yyes)
                 {
-                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd") + " 00:00:00";
+                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd");
 
                     one_passTableAdapter.InsertQuery_one_pass(
                     variables.textBox1_Text,
@@ -2170,11 +2394,14 @@ namespace mon_pass_sql_express
                     DateTime.ParseExact(datestring, "yyyy-MM-dd", CultureInfo.InvariantCulture));
 
 
-                    list2 = await getpage_update_grid_one_pass();
-                    dataGridView2.DataSource = list2.ToList();
-                    label2.Text = string.Format("გვერდი {0}/{1} დან", list2.PageCount, list2.PageCount);
-                    button2.Enabled = false;
-                    if (list2.PageCount > 1) { button1.Enabled = true; }
+                    //list2 = await getpage_update_grid_one_pass();
+                    //dataGridView2.DataSource = list2.ToList();
+                    //label2.Text = string.Format("გვერდი {0}/{1} დან", list2.PageCount, list2.PageCount);
+                    //button2.Enabled = false;
+                    //if (list2.PageCount > 1) { button1.Enabled = true; }
+
+
+                    this.one_passTableAdapter.Fill(this.dataSet1.one_pass);
 
                     int nRowIndex = dataGridView2.Rows.Count - 1;
                     dataGridView2.ClearSelection();
@@ -2214,12 +2441,13 @@ namespace mon_pass_sql_express
                 variables.add_edit_ = false;
                 add_edit fo = new add_edit();
                 fo.Text = "GM დამატება / რედაქტირება";
+                variables.yyes = false;
                 fo.ShowDialog();
                 if (variables.yyes)
                 {
                     Int32 ro_in = dataGridView1.SelectedRows[0].Index;
 
-                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd") + " 00:00:00"; ;
+                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd") ;
 
                     mainTableAdapter.UpdateQuery(
                     variables.textBox1_Text,
@@ -2229,15 +2457,17 @@ namespace mon_pass_sql_express
                     variables.textBox5_Text,
                     variables.textBox6_Text,
                     variables.textBox7_Text,
-                    DateTime.ParseExact(datestring, "yyyy-MM-dd 00:00:00", CultureInfo.InvariantCulture),
+                    DateTime.ParseExact(datestring, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                     variables.numericUpDown1_,
                     Convert.ToInt32(dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells[0].Value)
                     );
 
-                    list = await getpage(pagenumber);
-                    dataGridView1.DataSource = list.ToList();
-                    label1.TextAlign = ContentAlignment.MiddleCenter;
-                    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
+                    //list = await getpage(pagenumber);
+                    //dataGridView1.DataSource = list.ToList();
+                    //label1.TextAlign = ContentAlignment.MiddleCenter;
+                    //label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
+
+                    this.mainTableAdapter.Fill(this.dataSet1.main);
 
                     dataGridView1.ClearSelection();
                     dataGridView1.Rows[ro_in].Selected = true;
@@ -2260,12 +2490,13 @@ namespace mon_pass_sql_express
                 variables.add_edit_ = false;
                 add_edit fo = new add_edit();
                 fo.Text = "CORP დამატება / რედაქტირება";
+                variables.yyes = false;
                 fo.ShowDialog();
                 if (variables.yyes)
                 {
                     Int32 ro_in = dataGridView3.SelectedRows[0].Index;
 
-                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd") + " 00:00:00"; ;
+                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd");
 
                     main_corpTableAdapter.UpdateQuery_main_corp(
                     variables.textBox1_Text,
@@ -2275,15 +2506,17 @@ namespace mon_pass_sql_express
                     variables.textBox5_Text,
                     variables.textBox6_Text,
                     variables.textBox7_Text,
-                    DateTime.ParseExact(datestring, "yyyy-MM-dd 00:00:00", CultureInfo.InvariantCulture),
+                    DateTime.ParseExact(datestring, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                     variables.numericUpDown1_,
                     Convert.ToInt32(dataGridView3.Rows[dataGridView3.SelectedRows[0].Index].Cells[0].Value)
                     );
 
-                    list1 = await getpage_corp(pagenumber_2);
-                    dataGridView3.DataSource = list1.ToList();
-                    label1.TextAlign = ContentAlignment.MiddleCenter;
-                    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
+                    //list1 = await getpage_corp(pagenumber_2);
+                    //dataGridView3.DataSource = list1.ToList();
+                    //label1.TextAlign = ContentAlignment.MiddleCenter;
+                    //label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
+
+                    this.main_corpTableAdapter.Fill(this.dataSet1.main_corp);
 
                     dataGridView3.ClearSelection();
                     dataGridView3.Rows[ro_in].Selected = true;
@@ -2307,12 +2540,13 @@ namespace mon_pass_sql_express
                 variables.add_edit_ = false;
                 add_edit_one_pass fo = new add_edit_one_pass();
                 fo.Text = "ერთჯერადი საშვი დამატება / რედაქტირება";
+                variables.yyes = false;
                 fo.ShowDialog();
                 if (variables.yyes)
                 {
                     Int32 ro_in = dataGridView2.SelectedRows[0].Index;
 
-                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd") + " 00:00:00"; ;
+                    string datestring = variables.dateTimePicker_.ToString("yyyy-MM-dd");
 
                     one_passTableAdapter.UpdateQuery(
                     variables.textBox1_Text,
@@ -2322,14 +2556,16 @@ namespace mon_pass_sql_express
                     variables.textBox5_Text,
                     variables.textBox6_Text,
                     variables.ttime,
-                    DateTime.ParseExact(datestring, "yyyy-MM-dd 00:00:00", CultureInfo.InvariantCulture),
+                    DateTime.ParseExact(datestring, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                     Convert.ToInt32(dataGridView2.Rows[dataGridView2.SelectedRows[0].Index].Cells[0].Value)
                     );
 
-                    list2 = await getpage_one_pass(pagenumber_3);
-                    dataGridView2.DataSource = list2.ToList();
-                    label2.TextAlign = ContentAlignment.MiddleCenter;
-                    label2.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list1.PageCount);
+                    //list2 = await getpage_one_pass(pagenumber_3);
+                    //dataGridView2.DataSource = list2.ToList();
+                    //label2.TextAlign = ContentAlignment.MiddleCenter;
+                    //label2.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list1.PageCount);
+
+                    this.one_passTableAdapter.Fill(this.dataSet1.one_pass);
 
                     dataGridView2.ClearSelection();
                     dataGridView2.Rows[ro_in].Selected = true;
@@ -2452,90 +2688,94 @@ namespace mon_pass_sql_express
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 0)
-            {
-                if (list.HasNextPage) { button2.Enabled = true; } else { button2.Enabled = false; }
-                if (list.HasPreviousPage) { button1.Enabled = true; } else { button1.Enabled = false; }
-                label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
-                relocate_filter_text_box();
-                if (list.PageCount == 0)
-                {
-                    button1.Enabled = false;
-                    button2.Enabled = false;
-                    button4.Enabled = false;
-                    button7.Enabled = false;
-                }
-                else
-                {
-                    if (list.HasNextPage)
-                    {
-                        button2.Enabled = true;
-                        button4.Enabled = true;
-                    }
+            if (tabControl1.SelectedIndex == 0) { relocate_filter_text_box(); }
+            if (tabControl1.SelectedIndex == 1) { relocate_filter_text_box_corp(); }
+            if (tabControl1.SelectedIndex == 2) { relocate_filter_text_box_one_pass(); }
 
-                    if (list.HasPreviousPage)
-                    {
-                        button1.Enabled = true;
-                        button7.Enabled = true;
-                    }
-                }
-            }
-            if (tabControl1.SelectedIndex == 1)
-            {
-                if (list1.HasNextPage) { button2.Enabled = true; } else { button2.Enabled = false; }
-                if (list1.HasPreviousPage) { button1.Enabled = true; } else { button1.Enabled = false; }
-                label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
-                relocate_filter_text_box_corp();
-                if (list1.PageCount == 0)
-                {
-                    button1.Enabled = false;
-                    button2.Enabled = false;
-                    button4.Enabled = false;
-                    button7.Enabled = false;
-                }
-                else
-                {
-                    if (list1.HasNextPage)
-                    {
-                        button2.Enabled = true;
-                        button4.Enabled = true;
-                    }
+            //if (tabControl1.SelectedIndex == 0)
+            //{
+            //    if (list.HasNextPage) { button2.Enabled = true; } else { button2.Enabled = false; }
+            //    if (list.HasPreviousPage) { button1.Enabled = true; } else { button1.Enabled = false; }
+            //    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
+            //    relocate_filter_text_box();
+            //    if (list.PageCount == 0)
+            //    {
+            //        button1.Enabled = false;
+            //        button2.Enabled = false;
+            //        button4.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        if (list.HasNextPage)
+            //        {
+            //            button2.Enabled = true;
+            //            button4.Enabled = true;
+            //        }
 
-                    if (list1.HasPreviousPage)
-                    {
-                        button1.Enabled = true;
-                        button7.Enabled = true;
-                    }
-                }
-            }
-            if (tabControl1.SelectedIndex == 2)
-            {
-                if (list2.HasNextPage) { button2.Enabled = true; } else { button2.Enabled = false; }
-                if (list2.HasPreviousPage) { button1.Enabled = true; } else { button1.Enabled = false; }
-                label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list2.PageCount);
-                relocate_filter_text_box_one_pass();
-                if (list2.PageCount == 0)
-                {
-                    button1.Enabled = false;
-                    button2.Enabled = false;
-                    button4.Enabled = false;
-                    button7.Enabled = false;
-                }
-                else
-                {
-                    if (list2.HasNextPage)
-                    {
-                        button2.Enabled = true;
-                        button4.Enabled = true;
-                    }
+            //        if (list.HasPreviousPage)
+            //        {
+            //            button1.Enabled = true;
+            //            button7.Enabled = true;
+            //        }
+            //    }
+            //}
+            //if (tabControl1.SelectedIndex == 1)
+            //{
+            //    if (list1.HasNextPage) { button2.Enabled = true; } else { button2.Enabled = false; }
+            //    if (list1.HasPreviousPage) { button1.Enabled = true; } else { button1.Enabled = false; }
+            //    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
+            //    relocate_filter_text_box_corp();
+            //    if (list1.PageCount == 0)
+            //    {
+            //        button1.Enabled = false;
+            //        button2.Enabled = false;
+            //        button4.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        if (list1.HasNextPage)
+            //        {
+            //            button2.Enabled = true;
+            //            button4.Enabled = true;
+            //        }
 
-                    if (list2.HasPreviousPage)
-                    {
-                        button1.Enabled = true;
-                        button7.Enabled = true;
-                    }
-                }
-            }
+            //        if (list1.HasPreviousPage)
+            //        {
+            //            button1.Enabled = true;
+            //            button7.Enabled = true;
+            //        }
+            //    }
+            //}
+            //if (tabControl1.SelectedIndex == 2)
+            //{
+            //    if (list2.HasNextPage) { button2.Enabled = true; } else { button2.Enabled = false; }
+            //    if (list2.HasPreviousPage) { button1.Enabled = true; } else { button1.Enabled = false; }
+            //    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list2.PageCount);
+            //    relocate_filter_text_box_one_pass();
+            //    if (list2.PageCount == 0)
+            //    {
+            //        button1.Enabled = false;
+            //        button2.Enabled = false;
+            //        button4.Enabled = false;
+            //        button7.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        if (list2.HasNextPage)
+            //        {
+            //            button2.Enabled = true;
+            //            button4.Enabled = true;
+            //        }
+
+            //        if (list2.HasPreviousPage)
+            //        {
+            //            button1.Enabled = true;
+            //            button7.Enabled = true;
+            //        }
+            //    }
+            //}
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -2592,99 +2832,99 @@ namespace mon_pass_sql_express
 
         private async void button4_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 0)
-            {
+            //if (tabControl1.SelectedIndex == 0)
+            //{
 
-                pagenumber = list.PageCount;
-                list = await getpage(pagenumber);
-                dataGridView1.DataSource = list.ToList();
-                label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
-                button4.Enabled = false;
-                button2.Enabled = false;
-                button7.Enabled = true;
-                button1.Enabled = true;
-
-
-                relocate_filter_text_box();
-            }
-            if (tabControl1.SelectedIndex == 1)
-            {
-
-                pagenumber_2 = list1.PageCount;
-                list1 = await getpage_corp(pagenumber_2);
-                dataGridView3.DataSource = list1.ToList();
-                label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
-                button4.Enabled = false;
-                button2.Enabled = false;
-                button7.Enabled = true;
-                button1.Enabled = true;
+            //    pagenumber = list.PageCount;
+            //    list = await getpage(pagenumber);
+            //    dataGridView1.DataSource = list.ToList();
+            //    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
+            //    button4.Enabled = false;
+            //    button2.Enabled = false;
+            //    button7.Enabled = true;
+            //    button1.Enabled = true;
 
 
-                relocate_filter_text_box_corp();
-            }
+            //    relocate_filter_text_box();
+            //}
+            //if (tabControl1.SelectedIndex == 1)
+            //{
 
-            if (tabControl1.SelectedIndex == 2)
-            {
+            //    pagenumber_2 = list1.PageCount;
+            //    list1 = await getpage_corp(pagenumber_2);
+            //    dataGridView3.DataSource = list1.ToList();
+            //    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
+            //    button4.Enabled = false;
+            //    button2.Enabled = false;
+            //    button7.Enabled = true;
+            //    button1.Enabled = true;
 
-                pagenumber_3 = list2.PageCount;
-                list2 = await getpage_one_pass(pagenumber_3);
-                dataGridView2.DataSource = list2.ToList();
-                label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list2.PageCount);
-                button4.Enabled = false;
-                button2.Enabled = false;
-                button7.Enabled = true;
-                button1.Enabled = true;
 
-                relocate_filter_text_box_one_pass();
-            }
+            //    relocate_filter_text_box_corp();
+            //}
+
+            //if (tabControl1.SelectedIndex == 2)
+            //{
+
+            //    pagenumber_3 = list2.PageCount;
+            //    list2 = await getpage_one_pass(pagenumber_3);
+            //    dataGridView2.DataSource = list2.ToList();
+            //    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list2.PageCount);
+            //    button4.Enabled = false;
+            //    button2.Enabled = false;
+            //    button7.Enabled = true;
+            //    button1.Enabled = true;
+
+            //    relocate_filter_text_box_one_pass();
+            //}
         }
 
         private async void button7_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 0)
-            {
+            //if (tabControl1.SelectedIndex == 0)
+            //{
 
-                pagenumber = 1;
-                list = await getpage(pagenumber);
-                dataGridView1.DataSource = list.ToList();
-                label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
-                button4.Enabled = true;
-                button2.Enabled = true;
-                button7.Enabled = false;
-                button1.Enabled = false;
+            //    pagenumber = 1;
+            //    list = await getpage(pagenumber);
+            //    dataGridView1.DataSource = list.ToList();
+            //    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber, list.PageCount);
+            //    button4.Enabled = true;
+            //    button2.Enabled = true;
+            //    button7.Enabled = false;
+            //    button1.Enabled = false;
 
-                relocate_filter_text_box();
-            }
-            if (tabControl1.SelectedIndex == 1)
-            {
+            //    relocate_filter_text_box();
+            //}
+            //if (tabControl1.SelectedIndex == 1)
+            //{
 
-                pagenumber_2 = 1;
-                list1 = await getpage_corp(pagenumber_2);
-                dataGridView3.DataSource = list1.ToList();
-                label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
-                button4.Enabled = true;
-                button2.Enabled = true;
-                button7.Enabled = false;
-                button1.Enabled = false;
+            //    pagenumber_2 = 1;
+            //    list1 = await getpage_corp(pagenumber_2);
+            //    dataGridView3.DataSource = list1.ToList();
+            //    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_2, list1.PageCount);
+            //    button4.Enabled = true;
+            //    button2.Enabled = true;
+            //    button7.Enabled = false;
+            //    button1.Enabled = false;
 
 
-                relocate_filter_text_box_corp();
-            }
+            //    relocate_filter_text_box_corp();
+            //}
 
-            if (tabControl1.SelectedIndex == 2)
-            {
+            //if (tabControl1.SelectedIndex == 2)
+            //{
 
-                pagenumber_3 = 1;
-                list2 = await getpage_one_pass(pagenumber_3);
-                dataGridView2.DataSource = list2.ToList();
-                label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list2.PageCount);
-                button4.Enabled = true;
-                button2.Enabled = true;
-                button7.Enabled = false;
-                button1.Enabled = false;
+            //    pagenumber_3 = 1;
+            //    list2 = await getpage_one_pass(pagenumber_3);
+            //    dataGridView2.DataSource = list2.ToList();
+            //    label1.Text = string.Format("გვერდი {0}/{1} დან", pagenumber_3, list2.PageCount);
+            //    button4.Enabled = true;
+            //    button2.Enabled = true;
+            //    button7.Enabled = false;
+            //    button1.Enabled = false;
 
-                relocate_filter_text_box_one_pass();
-            }
+            //    relocate_filter_text_box_one_pass();
+            //}
         }
 
         private void mainBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -2711,6 +2951,13 @@ namespace mon_pass_sql_express
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 0) { mainTableAdapter.Fill(this.dataSet1.main); }
+            if (tabControl1.SelectedIndex == 1) { main_corpTableAdapter.Fill(this.dataSet1.main_corp); }
+            if (tabControl1.SelectedIndex == 2) { one_passTableAdapter.Fill(this.dataSet1.one_pass); }
         }
     }
 }
@@ -2907,3 +3154,26 @@ namespace mon_pass_sql_express
 //GO
 //ALTER DATABASE[mon_pass] SET READ_WRITE
 //GO
+
+
+
+
+
+
+
+
+
+
+  //    <connectionStrings>
+  //  <add name = "mon_pass_sql_express.Properties.Settings.ConnectionString" connectionString="Provider=SQLOLEDB;Data Source=ZEMKALANDADZE\SQLEXPRESS;Password=Aa123456;User ID=sa;Initial Catalog=mon_pass" providerName="System.Data.OleDb" />
+  //  <add name = "mon_pass_entities" connectionString="metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=ZEMKALANDADZE\SQLEXPRESS;initial catalog=mon_pass;user id=sa;password=Aa123456;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+  //</connectionStrings>
+
+
+
+
+
+  //<connectionStrings>
+  //  <add name = "mon_pass_sql_express.Properties.Settings.ConnectionString" connectionString="Provider=SQLOLEDB;Data Source=VA\SQL_2017_DEV;Password=sasa;User ID=sa;Initial Catalog=mon_pass" providerName="System.Data.OleDb" />
+  //  <add name = "mon_pass_entities" connectionString="metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=VA\SQL_2017_DEV;initial catalog=mon_pass;user id=sa;password=sasa;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+  //</connectionStrings>

@@ -62,6 +62,7 @@ namespace mon_pass_sql_express
             }
             else
             {
+                variables.ssave_ok = true;
                 variables.yyes = true;
                 variables.textBox1_Text = textBox1.Text;
                 variables.textBox2_Text = textBox2.Text;

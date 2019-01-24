@@ -11,15 +11,32 @@ namespace mon_pass_sql_express
 {
     using System;
     using System.Data.Entity;
+    using System.Data.Entity.Core.EntityClient;
     using System.Data.Entity.Infrastructure;
     
     public partial class mon_pass_entities : DbContext
     {
-        public mon_pass_entities(string conn)
-            : base(conn)
+        public mon_pass_entities()
+            : base("name = mon_pass_entities")
         {
         }
-    
+
+        
+        //public static mon_pass_entities Create(string providerConnectionString)
+        //{
+        //    var entityBuilder = new EntityConnectionStringBuilder();
+
+        //    // use your ADO.NET connection string
+        //    entityBuilder.ProviderConnectionString = providerConnectionString;
+
+        //    entityBuilder.Provider = "System.Data.SqlClient";
+
+        //    // Set the Metadata location.
+        //    entityBuilder.Metadata = @"res://*/Database.DWH.DWModel.csdl|res://*/Database.DWH.DWModel.ssdl|res://*/Database.DWH.DWModel.msl";
+
+        //    return new mon_pass_entities(entityBuilder.ConnectionString);
+        //}
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
